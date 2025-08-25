@@ -35,6 +35,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {[
                 { name: 'About Us', action: () => alert('About Us page - Coming soon!') },
+                { name: 'Planes y Precios', action: () => window.location.hash = '#pricing' },
                 { name: 'Contact', action: () => alert('Contact page - Coming soon!') },
                 { name: 'Privacy Policy', action: () => alert('Privacy Policy - Coming soon!') },
                 { name: 'Terms of Service', action: () => alert('Terms of Service - Coming soon!') },

@@ -1,16 +1,43 @@
 import React from 'react';
 import { X, Plus, Minus, ShoppingBag, Trash2 } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
+import { useAuth } from '../hooks/useAuth';
+import { useNotifications } from '../hooks/useNotifications';
 
 interface CartProps {
   isOpen: boolean;
   onClose: () => void;
+  onCheckout: () => void;
 }
 
-const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
+const Cart: React.FC<CartProps> = ({ isOpen, onClose, onCheckout }) => {
   const { cartItems, updateQuantity, removeFromCart, totalPrice, totalItems } = useCart();
+  const { user } = useAuth();
+  const { addNotification } = useNotifications();
 
   if (!isOpen) return null;
+
+  const handleCheckout = () => {
+    if (!user) {
+      addNotification({
+        type: 'warning',
+        title: 'Please sign in',
+        message: 'You need to sign in to proceed with checkout.'
+      });
+      return;
+    }
+    
+    if (cartItems.length === 0) {
+      addNotification({
+        type: 'warning',
+        title: 'Cart is empty',
+        message: 'Add some products to your cart before checkout.'
+      });
+      return;
+    }
+    
+    onCheckout();
+  };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
@@ -98,7 +125,10 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
               </div>
               
               <div className="space-y-2">
-                <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                <button 
+                  onClick={handleCheckout}
+                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                >
                   Proceed to Checkout
                 </button>
                 <button

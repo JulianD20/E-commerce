@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Cart from './components/Cart';
 import AuthModal from './components/AuthModal';
+import CheckoutModal from './components/CheckoutModal';
+import NotificationContainer from './components/NotificationContainer';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import Vendors from './pages/Vendors';
@@ -10,16 +12,24 @@ import Categories from './pages/Categories';
 import SearchResults from './pages/SearchResults';
 import ProductDetails from './pages/ProductDetails';
 import VendorProfile from './pages/VendorProfile';
+import Orders from './pages/Orders';
+import Pricing from './pages/Pricing';
 import { useCart } from './hooks/useCart';
+import { useAuth } from './hooks/useAuth';
+import { useNotifications } from './hooks/useNotifications';
 import { Product, Vendor, Category } from './types';
 
 function App() {
+  const { user } = useAuth();
+  const { notifications, removeNotification } = useNotifications();
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
   const { isOpen: isCartOpen, setIsOpen: setIsCartOpen } = useCart();
+  const { cartItems, totalPrice, clearCart } = useCart();
 
   const handleNavigate = (page: string) => {
     if (page.startsWith('search:')) {
@@ -55,7 +65,33 @@ function App() {
     setCurrentPage('home');
   };
 
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    setIsCheckoutModalOpen(true);
+  };
+
+  const handleOrderComplete = () => {
+    clearCart();
+    setIsCheckoutModalOpen(false);
+  };
+
   const renderCurrentPage = () => {
+    if (currentPage === 'orders') {
+      return (
+        <Orders
+          onBack={handleBack}
+        />
+      );
+    }
+
+    if (currentPage === 'pricing') {
+      return (
+        <Pricing
+          onBack={handleBack}
+        />
+      );
+    }
+
     if (selectedProduct) {
       return (
         <ProductDetails
@@ -137,11 +173,25 @@ function App() {
       <Cart
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
+        onCheckout={handleCheckout}
       />
       
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
+      />
+      
+      <CheckoutModal
+        isOpen={isCheckoutModalOpen}
+        onClose={() => setIsCheckoutModalOpen(false)}
+        items={cartItems}
+        total={totalPrice}
+        onOrderComplete={handleOrderComplete}
+      />
+      
+      <NotificationContainer
+        notifications={notifications}
+        onRemove={removeNotification}
       />
     </div>
   );

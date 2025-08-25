@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { useNotifications } from '../hooks/useNotifications';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -7,6 +9,8 @@ interface AuthModalProps {
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
+  const { login, register, isLoading } = useAuth();
+  const { addNotification } = useNotifications();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,11 +22,64 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle authentication logic here
-    console.log('Auth form submitted', { isLogin, formData });
-    onClose();
+    
+    try {
+      let success = false;
+      
+      if (isLogin) {
+        success = await login(formData.email, formData.password);
+        if (success) {
+          addNotification({
+            type: 'success',
+            title: 'Welcome back!',
+            message: 'You have successfully signed in.'
+          });
+        } else {
+          addNotification({
+            type: 'error',
+            title: 'Login failed',
+            message: 'Invalid email or password. Please try again.'
+          });
+        }
+      } else {
+        if (formData.password !== formData.confirmPassword) {
+          addNotification({
+            type: 'error',
+            title: 'Password mismatch',
+            message: 'Passwords do not match. Please try again.'
+          });
+          return;
+        }
+        
+        success = await register(formData.name, formData.email, formData.password);
+        if (success) {
+          addNotification({
+            type: 'success',
+            title: 'Account created!',
+            message: 'Your account has been successfully created.'
+          });
+        } else {
+          addNotification({
+            type: 'error',
+            title: 'Registration failed',
+            message: 'Please check your information and try again.'
+          });
+        }
+      }
+      
+      if (success) {
+        onClose();
+        setFormData({ name: '', email: '', password: '', confirmPassword: '' });
+      }
+    } catch (error) {
+      addNotification({
+        type: 'error',
+        title: 'Something went wrong',
+        message: 'Please try again later.'
+      });
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -142,9 +199,17 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              disabled={isLoading}
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
             >
-              {isLogin ? 'Sign In' : 'Create Account'}
+              {isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  {isLogin ? 'Signing In...' : 'Creating Account...'}
+                </>
+              ) : (
+                isLogin ? 'Sign In' : 'Create Account'
+              )}
             </button>
           </form>
 
