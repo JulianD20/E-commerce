@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, X, Package, LogOut } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
+import { useAuth } from '../hooks/useAuth';
 
 interface HeaderProps {
   onAuthClick: () => void;
@@ -11,14 +12,17 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, onNavigate }) => {
   const { totalItems } = useCart();
+  const { user, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const navItems = [
     { label: 'Home', value: 'home' },
     { label: 'Shop', value: 'shop' },
     { label: 'Vendors', value: 'vendors' },
-    { label: 'Categories', value: 'categories' }
+    { label: 'Categories', value: 'categories' },
+    { label: 'Planes', value: 'pricing' }
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -27,6 +31,11 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
       onNavigate(`search:${searchQuery}`);
       setSearchQuery('');
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
   };
 
   return (
@@ -98,14 +107,52 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
               )}
             </button>
 
-            {/* Sign In Button */}
-            <button
-              onClick={onAuthClick}
-              className="hidden md:flex items-center space-x-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 border border-gray-300 rounded-lg hover:border-blue-300 transition-colors"
-            >
-              <User className="h-4 w-4" />
-              <span>Sign In</span>
-            </button>
+            {/* User Menu */}
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="hidden md:flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 border border-gray-300 rounded-lg hover:border-blue-300 transition-colors"
+                >
+                  <img
+                    src={user.avatar}
+                    alt={user.name}
+                    className="w-6 h-6 rounded-full"
+                  />
+                  <span>{user.name}</span>
+                </button>
+                
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <button
+                      onClick={() => {
+                        onNavigate('orders');
+                        setShowUserMenu(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                    >
+                      <Package className="h-4 w-4 mr-2" />
+                      My Orders
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center"
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={onAuthClick}
+                className="hidden md:flex items-center space-x-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 border border-gray-300 rounded-lg hover:border-blue-300 transition-colors"
+              >
+                <User className="h-4 w-4" />
+                <span>Sign In</span>
+              </button>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -160,15 +207,38 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
               ))}
 
               {/* Mobile Sign In */}
-              <button
-                onClick={() => {
-                  onAuthClick();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
-              >
-                Sign In
-              </button>
+              {user ? (
+                <>
+                  <button
+                    onClick={() => {
+                      onNavigate('orders');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  >
+                    My Orders
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => {
+                    onAuthClick();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                >
+                  Sign In
+                </button>
+              )}
             </div>
           </div>
         )}

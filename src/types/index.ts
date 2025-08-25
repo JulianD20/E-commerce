@@ -69,3 +69,63 @@ export interface FilterOptions {
   vendor: string;
   inStock: boolean;
 }
+
+export interface Order {
+  id: string;
+  orderNumber: string;
+  date: string;
+  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  items: CartItem[];
+  total: number;
+  shippingAddress: Address;
+  paymentMethod: string;
+  trackingNumber?: string;
+}
+
+export interface Address {
+  fullName: string;
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  phone: string;
+}
+
+export interface PaymentInfo {
+  cardNumber: string;
+  expiryDate: string;
+  cvv: string;
+  cardholderName: string;
+}
+
+export interface Notification {
+  id: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+  title: string;
+  message: string;
+  duration?: number;
+}
+
+export interface Plan {
+  id: string;
+  name: string;
+  subtitle: string;
+  price: number;
+  period: string;
+  description: string;
+  features: PlanFeature[];
+  isPopular?: boolean;
+  buttonText: string;
+  color: {
+    primary: string;
+    secondary: string;
+    accent: string;
+  };
+}
+
+export interface PlanFeature {
+  name: string;
+  included: boolean;
+  description?: string;
+}

@@ -39,10 +39,10 @@ const Home: React.FC<HomeProps> = ({ onCategoryClick, onVendorClick, onProductCl
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>
                 <button 
-                  onClick={() => alert('Vendor registration - Coming soon!')}
+                  onClick={() => onCategoryClick({ id: 'pricing', name: 'Pricing', image: '', productCount: 0 })}
                   className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
                 >
-                  Become a Vendor
+                  Ver Planes
                 </button>
               </div>
             </div>
