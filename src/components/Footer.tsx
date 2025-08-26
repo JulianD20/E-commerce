@@ -8,10 +8,10 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-white">MarketPlace</h3>
+            <h3 className="text-2xl font-bold text-white">MercadoPlace</h3>
             <p className="text-gray-300 text-sm leading-6">
-              Your premier destination for quality products from trusted vendors worldwide. 
-              Discover, shop, and enjoy seamless e-commerce experience.
+              Tu destino principal para productos de calidad de vendedores confiables en todo el mundo. 
+              Descubre, compra y disfruta de una experiencia de comercio electrónico sin problemas.
             </p>
             <div className="flex space-x-4">
               <button className="text-gray-400 hover:text-white transition-colors">
@@ -31,16 +31,16 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Quick Links</h4>
+            <h4 className="text-lg font-semibold text-white">Enlaces Rápidos</h4>
             <ul className="space-y-2">
               {[
-                { name: 'About Us', action: () => alert('About Us page - Coming soon!') },
+                { name: 'Acerca de Nosotros', action: () => alert('Página Acerca de Nosotros - ¡Próximamente!') },
                 { name: 'Planes y Precios', action: () => window.location.hash = '#pricing' },
-                { name: 'Contact', action: () => alert('Contact page - Coming soon!') },
-                { name: 'Privacy Policy', action: () => alert('Privacy Policy - Coming soon!') },
-                { name: 'Terms of Service', action: () => alert('Terms of Service - Coming soon!') },
-                { name: 'FAQ', action: () => alert('FAQ page - Coming soon!') },
-                { name: 'Support', action: () => alert('Support page - Coming soon!') }
+                { name: 'Contacto', action: () => alert('Página de Contacto - ¡Próximamente!') },
+                { name: 'Política de Privacidad', action: () => alert('Política de Privacidad - ¡Próximamente!') },
+                { name: 'Términos de Servicio', action: () => alert('Términos de Servicio - ¡Próximamente!') },
+                { name: 'Preguntas Frecuentes', action: () => alert('Página de FAQ - ¡Próximamente!') },
+                { name: 'Soporte', action: () => alert('Página de Soporte - ¡Próximamente!') }
               ].map((link) => (
                 <li key={link.name}>
                   <button
@@ -56,15 +56,15 @@ const Footer: React.FC = () => {
 
           {/* Categories */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Categories</h4>
+            <h4 className="text-lg font-semibold text-white">Categorías</h4>
             <ul className="space-y-2">
               {[
-                { name: 'Electronics', action: () => alert('Electronics category - Coming soon!') },
-                { name: 'Fashion', action: () => alert('Fashion category - Coming soon!') },
-                { name: 'Home & Garden', action: () => alert('Home & Garden category - Coming soon!') },
-                { name: 'Sports', action: () => alert('Sports category - Coming soon!') },
-                { name: 'Beauty', action: () => alert('Beauty category - Coming soon!') },
-                { name: 'Books', action: () => alert('Books category - Coming soon!') }
+                { name: 'Electrónicos', action: () => alert('Categoría Electrónicos - ¡Próximamente!') },
+                { name: 'Moda', action: () => alert('Categoría Moda - ¡Próximamente!') },
+                { name: 'Hogar y Jardín', action: () => alert('Categoría Hogar y Jardín - ¡Próximamente!') },
+                { name: 'Deportes', action: () => alert('Categoría Deportes - ¡Próximamente!') },
+                { name: 'Belleza', action: () => alert('Categoría Belleza - ¡Próximamente!') },
+                { name: 'Libros', action: () => alert('Categoría Libros - ¡Próximamente!') }
               ].map((category) => (
                 <li key={category.name}>
                   <button
@@ -80,19 +80,19 @@ const Footer: React.FC = () => {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Contact Us</h4>
+            <h4 className="text-lg font-semibold text-white">Contáctanos</h4>
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-gray-300">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <span className="text-sm">support@marketplace.com</span>
+                <span className="text-sm">soporte@mercadoplace.com</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <span className="text-sm">+1 (555) 123-4567</span>
+                <span className="text-sm">+52 (555) 123-4567</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <MapPin className="h-4 w-4 flex-shrink-0" />
-                <span className="text-sm">123 Commerce St, New York, NY 10001</span>
+                <span className="text-sm">Av. Reforma 123, Ciudad de México, CDMX 06600</span>
               </div>
             </div>
           </div>
@@ -101,23 +101,23 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 MarketPlace. All rights reserved.
+              © 2024 MercadoPlace. Todos los derechos reservados.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <button 
-                onClick={() => alert('Privacy Policy - Coming soon!')}
+                onClick={() => alert('Política de Privacidad - ¡Próximamente!')}
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
-                Privacy
+                Privacidad
               </button>
               <button 
-                onClick={() => alert('Terms of Service - Coming soon!')}
+                onClick={() => alert('Términos de Servicio - ¡Próximamente!')}
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
-                Terms
+                Términos
               </button>
               <button 
-                onClick={() => alert('Cookie Policy - Coming soon!')}
+                onClick={() => alert('Política de Cookies - ¡Próximamente!')}
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
                 Cookies
