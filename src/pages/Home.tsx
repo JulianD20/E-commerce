@@ -23,23 +23,23 @@ const Home: React.FC<HomeProps> = ({ onCategoryClick, onVendorClick, onProductCl
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                Discover Amazing Products from
-                <span className="text-blue-200"> Trusted Vendors</span>
+                Descubre Productos Increíbles de
+                <span className="text-blue-200"> Vendedores Confiables</span>
               </h1>
               <p className="text-xl text-blue-100 leading-relaxed">
-                Shop from thousands of verified vendors worldwide. Find quality products, competitive prices, 
-                and exceptional service all in one place.
+                Compra de miles de vendedores verificados en todo el mundo. Encuentra productos de calidad, precios competitivos 
+                y un servicio excepcional en un solo lugar.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button 
-                  onClick={() => window.location.hash = '#shop'}
+                  onClick={() => onNavigate('shop')}
                   className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center justify-center"
                 >
-                  Start Shopping
+                  Comenzar a Comprar
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>
                 <button 
-                  onClick={() => onCategoryClick({ id: 'pricing', name: 'Pricing', image: '', productCount: 0 })}
+                  onClick={() => onNavigate('pricing')}
                   className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
                 >
                   Ver Planes
@@ -66,10 +66,10 @@ const Home: React.FC<HomeProps> = ({ onCategoryClick, onVendorClick, onProductCl
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { icon: Shield, title: 'Secure Shopping', desc: 'Protected by industry-leading security' },
-              { icon: Truck, title: 'Fast Delivery', desc: 'Quick shipping from verified vendors' },
-              { icon: Headphones, title: '24/7 Support', desc: 'Always here to help you shop' },
-              { icon: TrendingUp, title: 'Best Prices', desc: 'Competitive prices guaranteed' }
+              { icon: Shield, title: 'Compras Seguras', desc: 'Protegido por seguridad líder en la industria' },
+              { icon: Truck, title: 'Entrega Rápida', desc: 'Envío rápido de vendedores verificados' },
+              { icon: Headphones, title: 'Soporte 24/7', desc: 'Siempre aquí para ayudarte a comprar' },
+              { icon: TrendingUp, title: 'Mejores Precios', desc: 'Precios competitivos garantizados' }
             ].map((feature) => (
               <div key={feature.title} className="text-center">
                 <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -87,8 +87,8 @@ const Home: React.FC<HomeProps> = ({ onCategoryClick, onVendorClick, onProductCl
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Shop by Category</h2>
-            <p className="text-lg text-gray-600">Discover products across all major categories</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Comprar por Categoría</h2>
+            <p className="text-lg text-gray-600">Descubre productos en todas las categorías principales</p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -107,8 +107,8 @@ const Home: React.FC<HomeProps> = ({ onCategoryClick, onVendorClick, onProductCl
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Products</h2>
-            <p className="text-lg text-gray-600">Handpicked products from our top vendors</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Productos Destacados</h2>
+            <p className="text-lg text-gray-600">Productos seleccionados de nuestros mejores vendedores</p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -127,8 +127,8 @@ const Home: React.FC<HomeProps> = ({ onCategoryClick, onVendorClick, onProductCl
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Vendors</h2>
-            <p className="text-lg text-gray-600">Discover amazing stores from trusted sellers</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Vendedores Destacados</h2>
+            <p className="text-lg text-gray-600">Descubre tiendas increíbles de vendedores confiables</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -146,21 +146,21 @@ const Home: React.FC<HomeProps> = ({ onCategoryClick, onVendorClick, onProductCl
       {/* Newsletter Section */}
       <section className="py-16 bg-blue-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Stay Updated</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">Mantente Actualizado</h2>
           <p className="text-xl text-blue-100 mb-8">
-            Get the latest deals and products delivered to your inbox
+            Recibe las últimas ofertas y productos directamente en tu bandeja de entrada
           </p>
           <div className="max-w-md mx-auto flex gap-4">
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Ingresa tu email"
               className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-blue-300"
             />
             <button 
-              onClick={() => alert('Newsletter subscription - Coming soon!')}
+              onClick={() => alert('Suscripción al boletín - ¡Próximamente!')}
               className="bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
             >
-              Subscribe
+              Suscribirse
             </button>
           </div>
         </div>

@@ -18,10 +18,10 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const navItems = [
-    { label: 'Home', value: 'home' },
-    { label: 'Shop', value: 'shop' },
-    { label: 'Vendors', value: 'vendors' },
-    { label: 'Categories', value: 'categories' },
+    { label: 'Inicio', value: 'home' },
+    { label: 'Tienda', value: 'shop' },
+    { label: 'Vendedores', value: 'vendors' },
+    { label: 'Categorías', value: 'categories' },
     { label: 'Planes', value: 'pricing' }
   ];
 
@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search products, vendors, categories..."
+                  placeholder="Buscar productos, vendedores, categorías..."
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
@@ -68,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                   type="submit"
                   className="absolute right-2 top-1.5 px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
                 >
-                  Search
+                  Buscar
                 </button>
               </div>
             </form>
@@ -132,14 +132,14 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                       className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center"
                     >
                       <Package className="h-4 w-4 mr-2" />
-                      My Orders
+                      Mis Pedidos
                     </button>
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center"
                     >
                       <LogOut className="h-4 w-4 mr-2" />
-                      Sign Out
+                      Cerrar Sesión
                     </button>
                   </div>
                 )}
@@ -150,7 +150,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                 className="hidden md:flex items-center space-x-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 border border-gray-300 rounded-lg hover:border-blue-300 transition-colors"
               >
                 <User className="h-4 w-4" />
-                <span>Sign In</span>
+                <span>Iniciar Sesión</span>
               </button>
             )}
 
@@ -175,7 +175,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search..."
+                    placeholder="Buscar..."
                     className="w-full pl-10 pr-16 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                   <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
@@ -183,7 +183,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                     type="submit"
                     className="absolute right-2 top-1.5 px-2 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 transition-colors"
                   >
-                    Go
+                    Ir
                   </button>
                 </div>
               </form>
@@ -216,7 +216,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                     }}
                     className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
                   >
-                    My Orders
+                    Mis Pedidos
                   </button>
                   <button
                     onClick={() => {
@@ -225,7 +225,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                     }}
                     className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
                   >
-                    Sign Out
+                    Cerrar Sesión
                   </button>
                 </>
               ) : (
@@ -236,7 +236,7 @@ const Header: React.FC<HeaderProps> = ({ onAuthClick, onCartClick, currentPage, 
                   }}
                   className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
                 >
-                  Sign In
+                  Iniciar Sesión
                 </button>
               )}
             </div>

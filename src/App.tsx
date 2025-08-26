@@ -5,6 +5,7 @@ import Cart from './components/Cart';
 import AuthModal from './components/AuthModal';
 import CheckoutModal from './components/CheckoutModal';
 import NotificationContainer from './components/NotificationContainer';
+import Chatbot from './components/Chatbot';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import Vendors from './pages/Vendors';
@@ -193,6 +194,8 @@ function App() {
         notifications={notifications}
         onRemove={removeNotification}
       />
+      
+      <Chatbot />
     </div>
   );
 }
